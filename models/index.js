@@ -1,3 +1,3 @@
 module.exports = {
-    TempPoint = require("./TempPoint")
+    TempPoint: require("./TempPoint")
 }

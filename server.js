@@ -5,13 +5,19 @@ var mongoose = require('mongoose');
 var db = require("./models");
 var PORT = 8080;
 var app = express();
+var path = require('path');
+// process.env.TZ = 'UTC-4'
 
-
-app.use(logger("combined"));
+// app.use(logger("combined"));
+app.use(logger("common"));
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static("public"));
-require("./routing/apiRoutes")(app);
+app.use(bodyParser.json());
 
+app.use(express.static("public"));
+
+require("./routing/apiRoutes")(app);
+require("./routing/htmlRoute")(app);
+ 
 var MONGODB_URI = "mongodb://localhost/tempExpress";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);

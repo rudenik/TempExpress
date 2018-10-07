@@ -15,7 +15,7 @@ app.get("/getTemps", function(req, res){
 
 app.get("/getLatestTemps", function(req, res){
     db.TempPoint.find({})
-    .sort({datePosted: -1})
+    .sort({$natural: -1})
     .limit(1)
     .then(function(results){
         res.json(results);

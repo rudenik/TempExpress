@@ -18,8 +18,11 @@ function getLastSixHours(){
          temps.push(res[ele].temperature);
         }
         for(var i=0; i < res.length ; i+=60){
-            dataLabels.push(moment(res[ele].dateCreated).format("LT"))
+            dataLabels.push(moment(res[i].datePosted).format("LT"))
         }
+        console.log(res);
+        console.log("Data Labels: ", dataLabels)
+        console.log("temps.legnth: ", temps.length)
         })
     )
 }
@@ -30,7 +33,7 @@ function drawChart() {
     
     var myChart = new Chart(ctx, { 
         "type": "line",
-        "data": { "labels": dataLabels,
+        "data": { "labels": dataLabels.reverse(),
                     //["January", "February", "March", "April", "May", "June", "July"], 
         "datasets": [{ "label": "Baby Room Temperature",
                      "data": temps, 

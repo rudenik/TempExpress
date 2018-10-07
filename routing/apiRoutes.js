@@ -42,7 +42,7 @@ app.get("/getLastSixHours", function(req, res){
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);
     // console.log(req.body);
-    db.TempPoint.create({"temperature":req.body.Temperature}).then(function(dbTempPoint){
+    db.TempPoint.create({"temperature":req.body.Temperature, "datePosted":Date.now()}).then(function(dbTempPoint){
         console.log(Date.now());
         res.json(dbTempPoint);
     });

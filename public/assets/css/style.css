@@ -7,3 +7,6 @@ h6{
     display: inline;
     padding: 20px;
 }
+#sixHours, #twentyFourHours{
+    background-color: #dca03f;
+}

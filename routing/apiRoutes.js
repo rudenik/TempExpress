@@ -39,6 +39,20 @@ app.get("/getLastSixHours", function(req, res){
     })
 })
 
+app.get("/getLast24Hours", function(req, res){
+    db.TempPoint.find({
+        "datePosted":
+        {$gt:new Date(Date.now()- 24 * 60 * 60 * 1000)}
+    })
+    .sort({datePosted: -1})
+    .then(function(results){
+        res.json(results);
+    })
+    .catch(function(err){
+        res.json(err);
+    })
+})
+
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);
     // console.log(req.body);

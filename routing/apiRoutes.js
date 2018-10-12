@@ -30,7 +30,7 @@ app.get("/getLastSixHours", function(req, res){
         "datePosted":
         {$gt:new Date(Date.now()- 6 * 60 * 60 * 1000)}
     })
-    .sort({datePosted: -1})
+    .sort({datePosted: 1})
     .then(function(results){
         res.json(results);
     })
@@ -44,7 +44,7 @@ app.get("/getLast24Hours", function(req, res){
         "datePosted":
         {$gt:new Date(Date.now()- 24 * 60 * 60 * 1000)}
     })
-    .sort({datePosted: -1})
+    .sort({datePosted: 1})
     .then(function(results){
         res.json(results);
     })

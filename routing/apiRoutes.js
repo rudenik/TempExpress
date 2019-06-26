@@ -1,6 +1,20 @@
 var path = require("path");
+const axios = require("axios");
 var db = require("../models");
+
 module.exports = function(app){
+
+app.get("/ip", function(req, res){
+    axios.get("https://api.ipify.org?format=json").then(function(resp){
+        var myResp = {
+            "Date":resp.headers.date,
+            "ip":resp.data.ip
+        }
+        // console.log(myResp)
+        res.send(myResp)
+    })
+})
+
 app.get("/getTemps", function(req, res){
     db.TempPoint.find({})
     .sort({datePosted: -1})

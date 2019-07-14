@@ -1,13 +1,15 @@
 var path = require("path");
 const axios = require("axios");
 var db = require("../models");
+const moment = require("moment");
 
 module.exports = function(app){
 
 app.get("/ip", function(req, res){
-    axios.get("https://api.ipify.org?format=json").then(function(resp){
+    axios.get("https://api.myip.com").then(function(resp){
+        // console.log(resp);
         var myResp = {
-            "Date":resp.headers.date,
+            "Date":moment().format("LLL"),
             "ip":resp.data.ip
         }
         // console.log(myResp)

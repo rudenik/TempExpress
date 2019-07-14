@@ -20,7 +20,7 @@ require("./routing/htmlRoute")(app);
  
 var MONGODB_URI = "mongodb://localhost/tempExpress";
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true }) ;
 
 app.listen(PORT,function(){
     console.log("Get yourself connected, the writings on port " + PORT);

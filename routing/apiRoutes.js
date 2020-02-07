@@ -2,8 +2,14 @@ var path = require("path");
 const axios = require("axios");
 var db = require("../models");
 const moment = require("moment");
+const Push = require('pushover-notifications');
+
+
+var timePastThreshold;
 
 module.exports = function(app){
+
+
 
 app.get("/ip", function(req, res){
     axios.get("https://api.myip.com").then(function(resp){
@@ -72,9 +78,48 @@ app.get("/getLast24Hours", function(req, res){
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);
     // console.log(req.body);
+    var thresholdTemp = 8.0
     db.TempPoint.create({"temperature":req.body.Temperature, "datePosted":Date.now()}).then(function(dbTempPoint){
-        console.log(Date.now());
-        res.json(dbTempPoint);
-    });
+        if(req.body.Temperature > thresholdTemp){
+            //Determine interval for notification
+            //new method for keeping track of notifications
+            db.TempPoint.find().sort({"datePosted":-1}).then(results =>{
+                if(results[1].temperature < req.body.Temperature){
+                    //send that it's too high
+                    timePastThreshold = moment();
+                    const push = new Push({ 
+                                        user: process.env['PUSHOVER_USER'],
+                                        token: process.env['PUSHOVER_TOKEN']
+                                    }) 
+                    var msg = {
+                        message: `The Temperature is ${req.body.Temperature}`,
+                        title: `Temperature is too high`, 
+                        sound: "tugboat",
+                        device: "Codec"
+                    }
+                    push.send(msg, function(err, pushResult){
+                        if (err){
+                            throw err;
+                        }
+                        console.log(pushResult);
+                                })
+                }else if(results[1].temperature > req.body.Temperature){
+                    //do nothing. 
+                    var now = moment()
+                    //if difference between now and timePastThrehold > 1 hour, send another notification 
+                // }else if(results[1].temperature > req.body.Temperature){
+                }
+                })
+            }
+            //check to see if the temp threshold has changed
+            
+            //send notification if it has
+            //set up pushover notification
+            console.log(Date.now());
+            res.json(dbTempPoint);
+
+        })
+        
+    
 });
 }

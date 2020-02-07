@@ -22,6 +22,7 @@ require("./routing/htmlRoute")(app);
 
 
 var MONGODB_URI = "mongodb://localhost/tempExpress";
+
 mongoose.Promise = Promise;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(

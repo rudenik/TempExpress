@@ -7,6 +7,26 @@ const Push = require('pushover-notifications');
 
 var timePastThreshold;
 
+var notifications = true;
+
+function sendNotifcation(temp){
+    const push = new Push({ 
+        user: process.env['PUSHOVER_USER'],
+        token: process.env['PUSHOVER_TOKEN']
+    }) 
+        var msg = {
+            message: `The Temperature is ${temp}`,
+            title: `Temperature is too high`, 
+            sound: "tugboat",
+            device: "Codec"
+        }
+        push.send(msg, function(err, pushResult){
+        if (err){
+            throw err;
+        }
+        console.log(pushResult);
+})
+}
 module.exports = function(app){
 
 
@@ -78,7 +98,8 @@ app.get("/getLast24Hours", function(req, res){
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);
     // console.log(req.body);
-    var thresholdTemp = 8.0
+    var thresholdTemp = 9.0
+
     db.TempPoint.create({"temperature":req.body.Temperature, "datePosted":Date.now()}).then(function(dbTempPoint){
         if(req.body.Temperature > thresholdTemp){
             //Determine interval for notification
@@ -87,22 +108,9 @@ app.post("/postTemp", function(req, res){
                 if(results[1].temperature < req.body.Temperature){
                     //send that it's too high
                     timePastThreshold = moment();
-                    const push = new Push({ 
-                                        user: process.env['PUSHOVER_USER'],
-                                        token: process.env['PUSHOVER_TOKEN']
-                                    }) 
-                    var msg = {
-                        message: `The Temperature is ${req.body.Temperature}`,
-                        title: `Temperature is too high`, 
-                        sound: "tugboat",
-                        device: "Codec"
+                    if(notifications){
+                        sendNotifcation(req.body.Temperature)
                     }
-                    push.send(msg, function(err, pushResult){
-                        if (err){
-                            throw err;
-                        }
-                        console.log(pushResult);
-                                })
                 }else if(results[1].temperature > req.body.Temperature){
                     //do nothing. 
                     var now = moment()

@@ -5,9 +5,9 @@ const moment = require("moment");
 const Push = require('pushover-notifications');
 
 
-var timePastThreshold;
 
-var notifications = true;
+
+var notifications = false;
 
 function sendNotifcation(temp){
     const push = new Push({ 

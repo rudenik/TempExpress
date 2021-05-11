@@ -14,7 +14,8 @@
   "keywords": [
     "express",
     "temperature",
-    "logging"
+    "logging",
+    "node"
   ],
   "author": "TheSimonCain",
   "license": "ISC",

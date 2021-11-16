@@ -39,6 +39,21 @@ function getLast24Hours() {
     )
 }
 
+function getLastFiveDays() {
+    return (
+        $.get("/getLastFiveDays").then(function (res) {
+            temps = [];
+            dataLabels = [];
+            for (var i = 0; i < res.length; i +=60) {
+                temps.push(res[i].temperature);
+            }
+            for (var i = 0; i < res.length; i +=60) {
+                dataLabels.push(moment(res[i].datePosted).format("LT"))
+            }
+        })
+    )
+}
+
 
 function drawChart() {
     var ctx = $("#myChart");
@@ -70,6 +85,11 @@ $("#sixHours").on("click", function () {
 })
 $("#twentyFourHours").on("click", function () {
     getLast24Hours().then(function () {
+        drawChart();
+    })
+})
+$("#fiveDays").on("click", function () {
+    getLastFiveDays().then(function () {
         drawChart();
     })
 })

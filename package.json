@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/rudenik/TempExpress#readme",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "body-parser": "^1.19.0",
     "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",

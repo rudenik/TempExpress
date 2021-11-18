@@ -100,12 +100,37 @@ app.get("/getLastFiveDays", function(req, res){
         {$gt:new Date(Date.now()- 5 * 24 * 60 * 60 * 1000)}
     })
     .sort({datePosted: 1})
-    .then(function(results){
-        res.json(results);
+    .then(function(TempResults){
+        db.HistoricalTemp.find({
+            "datePosted":
+            {$gt:new Date(Date.now()- 5 * 24 * 60 * 60 * 1000)}
+        })
+        .sort({datePosted: 1})
+        .then(function(HistResults){
+            // console.log(HistResults[1])
+            let results = {
+                tempResults: TempResults,
+                histResults: HistResults
+            }
+            res.json(results);
+        })
+        
     })
     .catch(function(err){
         res.json(err);
     })
+
+
+    // var dateToSearch = new Date("2021-11-11T11:00:00.000Z")
+    // var dateToSearch = moment().format('ll')
+    // console.log(dateToSearch)
+    // db.HistoricalTemp.find({})
+    // // .limit(20)
+    // // .sort({datePosted: 1})
+    // .then(function(results){
+    //     console.log(results)
+    // })
+
 })
 
 app.post("/postTemp", function(req, res){

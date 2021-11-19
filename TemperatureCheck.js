@@ -7,14 +7,15 @@ const request = require('request')
 const CheckTemp = function(){
     return{
         getLocalWeather: function(){
+          console.log("getting local weather")
             const apiKey = process.env.OPENWEATHERKEY
             var options = {
-                url: `https://api.openweathermap.org/data/2.5/weather?q=Toronto,CA&appid=${apiKey}&units=metric`, 
+                url: `https://api.openweathermap.org/data/2.5/weather?q=Toronto,CA&appid=${apiKey}&units=metric`,
                 method: "GET",
             }
             request(options, function(err, resp, body){
                 if(err){
-                    console.log(err)
+                    console.log("request error", err)
                 }else{
                     // console.log(JSON.stringify(JSON.parse(body), null, 2))
                     var report = JSON.parse(body)

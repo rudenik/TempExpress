@@ -47,7 +47,7 @@ mongoose.connect(MONGODB_URI, mongoOptions ).then(
     ()=>{
         app.listen(PORT,function(){
             console.log("Get yourself connected, the writings on port " + PORT);
+            scheduler.start()
         })
     }
 ) ;
-

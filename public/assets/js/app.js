@@ -64,15 +64,15 @@ function getLastFiveDays() {
             // console.log(res.histResults[i])
 
             for (var i = 0; i < res.histResults.length; i++ ){
-                for(var j=0; j < 6; j++){
+                // for(var j=0; j < 6; j++){
                     histLows.push(res.histResults[i].temperatureLow)
-                }
+                // }
                 
             }
             for (var i = 0; i < res.histResults.length; i++ ){
-                for(var j=0; j < 6; j++){
+                // for(var j=0; j < 6; j++){
                 histHighs.push(res.histResults[i].temperatureHigh)
-                }
+                // }
             }
 
 

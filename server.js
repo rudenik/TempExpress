@@ -26,7 +26,7 @@ require("./routing/htmlRoute")(app);
 // TemperatureCheck.getLocalWeather();
 const scheduler = require("./scheduler")
 
-var MONGODB_URI = "mongodb://localhost/tempExpress";
+var MONGODB_URI = process.env.MONGODB_URI
 
 mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);

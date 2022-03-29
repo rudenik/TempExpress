@@ -35,7 +35,7 @@ app.get("/ip", function(req, res){
     axios.get("https://api.myip.com").then(function(resp){
         // console.log(resp);
         var myResp = {
-            "Date":moment().format("LLL"),
+            "Date":moment().format("lll"),
             "ip":resp.data.ip
         }
         // console.log(myResp)
@@ -132,6 +132,56 @@ app.get("/getLastFiveDays", function(req, res){
     // })
 
 })
+
+app.post("/twine", function(req, res){
+    const push = new Push({ 
+        user: process.env['PUSHOVER_USER'],
+        token: process.env['PUSHOVER_TOKEN']
+    });
+
+    var reqIP = req.headers["x-forwarded-for"]
+    console.log("_remoteAddress: ", reqIP)
+
+
+    axios.get("http://twine.mine.nu:8081/ip", {timeout:8000}).then(function(response){
+        // console.log("resonse Date: ", response.data.Date);
+        // var formatedDate = response.data.Date ? moment(response.data.Date).format("lll") : moment().format("lll");
+        // console.log(formatedDate);
+        var msg = {
+            // message: `Opened at ${formatedDate}\nThe IP at home is ${response.data.ip}\nRequest sent from ${reqIP}\nThe temperature was ${req.query.temp} Celsius`,
+            message: `Opened at ${response.data.Date}\nThe temperature was ${req.query.temp} Celsius`,
+            title: `The door has been opened`,
+            device: ["theWife", "motog9power"]
+        }
+        push.send(msg, function(err, result){
+            console.log("sent the message titled: ", msg.title);
+            if (err){
+                throw err;
+            }
+            console.log("Pushover result", result);
+
+        })
+    res.send("Message received");
+    })
+    .catch(function(error){
+        console.log("Here's the error: ", error)
+        var errDate = moment().format("lll")
+        var msg = {
+            message: `Opened at ${errDate}\nThe temperature was ${req.query.temp} Celsius\nThere was an error at home ${error}`,
+            title: `The door has been opened`,
+            device: ["motog9power"]
+        }
+        push.send(msg, function(err, result){
+            console.log("sent the message titled: ", msg.title);
+            if (err){
+                throw err;
+            }
+            console.log("Pushover result", result);
+        })
+        res.send(`message received but there was an error: ${error}`)
+        
+    })
+});
 
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);

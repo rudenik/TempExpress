@@ -143,7 +143,7 @@ app.post("/twine", function(req, res){
     console.log("_remoteAddress: ", reqIP)
 
 
-    axios.get("http://twine.ddns.net:8081/ip", {timeout:8000}).then(function(response){
+    axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
         // console.log("resonse Date: ", response.data.Date);
         // var formatedDate = response.data.Date ? moment(response.data.Date).format("lll") : moment().format("lll");
         // console.log(formatedDate);

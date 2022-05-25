@@ -151,7 +151,7 @@ app.post("/twine", function(req, res){
             // message: `Opened at ${formatedDate}\nThe IP at home is ${response.data.ip}\nRequest sent from ${reqIP}\nThe temperature was ${req.query.temp} Celsius`,
             message: `Opened at ${response.data.Date}\nThe temperature was ${req.query.temp} Celsius`,
             title: `The door has been opened`,
-            device: ["theWife", "motog9power"]
+            device: ["theWife", "pixel6"]
         }
         push.send(msg, function(err, result){
             console.log("sent the message titled: ", msg.title);

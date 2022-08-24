@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "nodemon server.js",
-    "start": "node --optimize_for_size --max_old_space_size=460 server.js"
+    "start": "node --optimize_for_size server.js"
   },
   "repository": {
     "type": "git",

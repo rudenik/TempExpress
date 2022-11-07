@@ -27,6 +27,22 @@ function getLastSixHours() {
         })
     )
 }
+function getLastHour() {
+    return (
+        $.get("/getLastHour").then(function (res) {
+            temps = [];
+            dataLabels = [];
+            for (var i = 0; i < res.length; i ++) {
+                temps.push(res[i].temperature);
+            }
+            //specify the interval for which data points get displayed. This one is for labels
+            for (var i = 0; i < res.length; i ++) {
+                
+                dataLabels.push(moment(res[i].datePosted).format("HH:mm"))
+            }
+        })
+    )
+}
 function getLast24Hours() {
     return (
         $.get("/getLast24Hours").then(function (res) {
@@ -123,6 +139,11 @@ getLastSixHours().then(function () {
 
 $("#sixHours").on("click", function () {
     getLastSixHours().then(function () {
+        drawChart();
+    })
+})
+$("#lastHour").on("click", function () {
+    getLastHour().then(function () {
         drawChart();
     })
 })

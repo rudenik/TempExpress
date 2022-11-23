@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/rudenik/TempExpress#readme",
   "dependencies": {
-    "@scout_apm/scout-apm": "^0.2.3",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cron": "^2.0.0",

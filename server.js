@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 //app.use(express.static("public"));
 app.use(express.static(__dirname + "/public/"));
-app.use(scout.expressMiddleware());
+
 
 require("./routing/apiRoutes")(app);
 require("./routing/htmlRoute")(app);

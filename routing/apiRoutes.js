@@ -155,7 +155,7 @@ app.post("/twine", function(req, res){
     console.log("_remoteAddress: ", reqIP)
 
 
-    axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
+    // axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
         // console.log("resonse Date: ", response.data.Date);
         // var formatedDate = response.data.Date ? moment(response.data.Date).format("lll") : moment().format("lll");
         // console.log(formatedDate);
@@ -174,14 +174,15 @@ app.post("/twine", function(req, res){
 
         })
     res.send("Message received");
-    })
+    // })
+    /*
     .catch(function(error){
         console.log("Here's the error: ", error)
         var errDate = moment().format("lll")
         var msg = {
             message: `Opened at ${errDate}\nThe temperature was ${req.query.temp} Celsius\nThere was an error at home ${error}`,
             title: `The door has been opened`,
-            device: ["motog9power"]
+            //device: ["motog9power"]
         }
         push.send(msg, function(err, result){
             console.log("sent the message titled: ", msg.title);
@@ -193,6 +194,7 @@ app.post("/twine", function(req, res){
         res.send(`message received but there was an error: ${error}`)
         
     })
+    */
 });
 
 app.post("/postTemp", function(req, res){

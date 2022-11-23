@@ -154,14 +154,19 @@ app.post("/twine", function(req, res){
     var reqIP = req.headers["x-forwarded-for"]
     console.log("_remoteAddress: ", reqIP)
 
-
+    // axios.get("https://api.myip.com").then(function(resp){
+    //     // console.log(resp);
+    //     var myResp = {
+    //         "Date":moment().format("lll"),
+    //         "ip":resp.data.ip
+    //     }
     // axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
         // console.log("resonse Date: ", response.data.Date);
         // var formatedDate = response.data.Date ? moment(response.data.Date).format("lll") : moment().format("lll");
         // console.log(formatedDate);
         var msg = {
             // message: `Opened at ${formatedDate}\nThe IP at home is ${response.data.ip}\nRequest sent from ${reqIP}\nThe temperature was ${req.query.temp} Celsius`,
-            message: `Opened at ${response.data.Date}\nThe temperature was ${req.query.temp} Celsius`,
+            message: `Opened at ${moment().format("lll")}\nThe temperature was ${req.query.temp} Celsius`,
             title: `The door has been opened`,
             device: ["theWife", "pixel6"]
         }

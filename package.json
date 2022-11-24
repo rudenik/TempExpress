@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "nodemon server.js",
-    "start": "node --optimize_for_size --gc_interval=100 server.js",
-    "build": "node server.js"
+    "start": "node --optimize_for_size --gc_interval=100 server.js"
   },
   "repository": {
     "type": "git",

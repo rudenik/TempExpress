@@ -39,7 +39,9 @@ const mongoOptions = {
     useNewUrlParser: true,
     family: 4,
     user: process.env.MONGODB_USER,
-    pass: process.env.MONGODB_PW
+    pass: process.env.MONGODB_PW,
+    keepAlive: true,
+    keepAliveInitialDelay: 300000
 }
 
 
@@ -47,10 +49,8 @@ const mongoOptions = {
 mongoose.connect(MONGODB_URI, mongoOptions ).then(
     ()=>{
         app.listen(PORT,function(){
-            
             console.log("Get yourself connected, the writings on port " + PORT);
             scheduler.start()
-            
         })
     }
 ) ;

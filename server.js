@@ -4,21 +4,27 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var db = require("./models");
 const TemperatureCheck = require("./TemperatureCheck")
+//require('dotenv').config();
+//require('dotenv').config({ path: path.join(__dirname, '.env') });
+
 
 
 
 var PORT = process.env.PORT || 8080;
+
 var app = express();
 var path = require('path');
 // process.env.TZ = 'UTC-4'
-require('dotenv').config();
+
 
 // app.use(logger("combined"));
 app.use(logger("common"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + "/public/"));
+
+app.use(express.static(path.join(__dirname, '/public')));
+// app.use(express.static("public"));
 
 
 require("./routing/apiRoutes")(app);
@@ -50,7 +56,7 @@ mongoose.connect(MONGODB_URI, mongoOptions ).then(
     ()=>{
         app.listen(PORT,function(){
             console.log("Get yourself connected, the writings on port " + PORT);
-            scheduler.start()
+            //scheduler.start()
         })
     }
 ) ;

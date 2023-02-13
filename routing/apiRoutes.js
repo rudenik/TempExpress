@@ -32,7 +32,8 @@ module.exports = function(app){
 
 
 app.get("/ip", function(req, res){
-    axios.get("https://api.myip.com").then(function(resp){
+    axios.get("https://api.ipify.org?format=json").then(function(resp){
+    // axios.get("https://api.myip.com").then(function(resp){
         // console.log(resp);
         var myResp = {
             "Date":moment().format("lll"),
@@ -60,6 +61,7 @@ app.get("/getLatestTemps", function(req, res){
     .sort({$natural: -1})
     .limit(1)
     .then(function(results){
+        // console.log(results)
         res.json(results);
     })
     .catch(function(err){
@@ -100,6 +102,7 @@ app.get("/getLast24Hours", function(req, res){
     })
     .sort({datePosted: 1})
     .then(function(results){
+        // console.log(results)
         res.json(results);
     })
     .catch(function(err){
@@ -151,16 +154,11 @@ app.post("/twine", function(req, res){
         token: process.env['PUSHOVER_TOKEN']
     });
 
-    var reqIP = req.headers["x-forwarded-for"]
-    console.log("_remoteAddress: ", reqIP)
+    // var reqIP = req.headers["x-forwarded-for"]
+    // console.log("_remoteAddress: ", reqIP)
 
-    // axios.get("https://api.myip.com").then(function(resp){
-    //     // console.log(resp);
-    //     var myResp = {
-    //         "Date":moment().format("lll"),
-    //         "ip":resp.data.ip
-    //     }
-    // axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
+    axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
+
         // console.log("resonse Date: ", response.data.Date);
         // var formatedDate = response.data.Date ? moment(response.data.Date).format("lll") : moment().format("lll");
         // console.log(formatedDate);
@@ -202,6 +200,8 @@ app.post("/twine", function(req, res){
     */
 });
 
+})
+
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);
     // console.log(req.body);
@@ -237,4 +237,6 @@ app.post("/postTemp", function(req, res){
         
     
 });
+
 }
+

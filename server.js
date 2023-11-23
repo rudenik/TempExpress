@@ -14,7 +14,7 @@ var PORT = process.env.PORT || 8080;
 
 var app = express();
 var path = require('path');
-// process.env.TZ = 'UTC-4'
+process.env.TZ = 'America/New York'
 
 
 // app.use(logger("combined"));

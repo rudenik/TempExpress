@@ -157,7 +157,7 @@ app.post("/twine", function(req, res){
     // var reqIP = req.headers["x-forwarded-for"]
     // console.log("_remoteAddress: ", reqIP)
 
-    axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
+    // axios.get("http://twine.ddns.net:8080/ip", {timeout:8000}).then(function(response){
 
         // console.log("resonse Date: ", response.data.Date);
         // var formatedDate = response.data.Date ? moment(response.data.Date).format("lll") : moment().format("lll");
@@ -171,7 +171,7 @@ app.post("/twine", function(req, res){
         push.send(msg, function(err, result){
             console.log("sent the message titled: ", msg.title);
             if (err){
-                throw err;
+                console.log("Pushover Error: ", err);
             }
             console.log("Pushover result", result);
 
@@ -198,9 +198,9 @@ app.post("/twine", function(req, res){
         
     })
     */
-});
+// });
 
-})
+});
 
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);
@@ -227,7 +227,7 @@ app.post("/postTemp", function(req, res){
                 })
             }
             //check to see if the temp threshold has changed
-            
+            dbTempPoint.datePosted = dbTempPoint.datePosted.toLocaleTimeString()
             //send notification if it has
             //set up pushover notification
             console.log(Date.now());

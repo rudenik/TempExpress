@@ -208,9 +208,9 @@ app.post("/postTemp", function(req, res){
     // console.log(req.body);
     var thresholdTemp = 9.0
 
-    db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": new Date().toLocaleString('en-US', {
-        timeZone: 'America/New_York'
-    })}).then(function(dbTempPoint){
+    // db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": new Date().toLocaleString('en-US', {
+    //     timeZone: 'America/New_York'
+        db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": Date()}).then(function(dbTempPoint){
         if(req.body.Temperature > thresholdTemp){
             //Determine interval for notification
             //new method for keeping track of notifications
@@ -230,9 +230,10 @@ app.post("/postTemp", function(req, res){
                 })
             }
             //check to see if the temp threshold has changed
-            dbTempPoint.datePosted = dbTempPoint.datePosted.toLocaleTimeString()
+            // dbTempPoint.datePosted = dbTempPoint.datePosted.toLocaleTimeString()
             //send notification if it has
             //set up pushover notification
+            dbTempPoint.datePosted= new Date(dbTempPoint.datePosted).toLocaleString('en-US', {timeZone: 'America/New_York'})
             console.log(Date.now());
             res.json(dbTempPoint);
 

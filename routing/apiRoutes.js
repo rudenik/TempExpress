@@ -162,9 +162,10 @@ app.post("/twine", function(req, res){
         // console.log("resonse Date: ", response.data.Date);
         // var formatedDate = response.data.Date ? moment(response.data.Date).format("lll") : moment().format("lll");
         // console.log(formatedDate);
+        let dateOpened = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'})
         var msg = {
             // message: `Opened at ${formatedDate}\nThe IP at home is ${response.data.ip}\nRequest sent from ${reqIP}\nThe temperature was ${req.query.temp} Celsius`,
-            message: `Opened at ${moment().format("lll")}\nThe temperature was ${req.query.temp} Celsius`,
+            message: `Opened at ${moment(dateOpened).format("lll")}\nThe temperature was ${req.query.temp} Celsius`,
             title: `The door has been opened`,
             device: ["theWife", "pixel6"]
         }
@@ -207,7 +208,9 @@ app.post("/postTemp", function(req, res){
     // console.log(req.body);
     var thresholdTemp = 9.0
 
-    db.TempPoint.create({"temperature":req.body.Temperature, "datePosted":Date.now()}).then(function(dbTempPoint){
+    db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": new Date().toLocaleString('en-US', {
+        timeZone: 'America/New_York'
+    })}).then(function(dbTempPoint){
         if(req.body.Temperature > thresholdTemp){
             //Determine interval for notification
             //new method for keeping track of notifications

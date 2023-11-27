@@ -9,6 +9,10 @@ var TempSchema = new Schema ({
     temperature: {
         type: Number,
         required: true,
+    },
+    location: {
+        type: String,
+        require: false,
     }
     
 });

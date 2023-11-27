@@ -4,8 +4,8 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var db = require("./models");
 const TemperatureCheck = require("./TemperatureCheck")
-//require('dotenv').config();
-//require('dotenv').config({ path: path.join(__dirname, '.env') });
+require('dotenv').config();
+// require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 
 
@@ -44,10 +44,11 @@ mongoose.Promise = Promise;
 const mongoOptions = {
     useNewUrlParser: true,
     family: 4,
-    user: process.env.MONGODB_USER,
-    pass: process.env.MONGODB_PW,
+    // user: process.env.MONGODB_USER,
+    // pass: process.env.MONGODB_PW,
     keepAlive: true,
-    keepAliveInitialDelay: 300000
+    keepAliveInitialDelay: 300000,
+
 }
 
 

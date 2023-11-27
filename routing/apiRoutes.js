@@ -205,30 +205,39 @@ app.post("/twine", function(req, res){
 
 app.post("/postTemp", function(req, res){
     console.log("Temperature: ", req.body.Temperature);
-    // console.log(req.body);
+    console.log("Req Body: ", req.body);
     var thresholdTemp = 9.0
 
     // db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": new Date().toLocaleString('en-US', {
     //     timeZone: 'America/New_York'
-        db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": Date()}).then(function(dbTempPoint){
-        if(req.body.Temperature > thresholdTemp){
+    let temperaturePoint = req.body.location ? {
+        "temperature":req.body.Temperature,
+        "datePosted": Date(),
+        location: req.body.location
+    } :
+    {
+        temperature: req.body.Temperature,
+        datePosted: Date()
+    }
+        db.TempPoint.create(temperaturePoint).then(function(dbTempPoint){
+        // if(req.body.Temperature > thresholdTemp){
             //Determine interval for notification
             //new method for keeping track of notifications
-            db.TempPoint.find().sort({"datePosted":-1}).then(results =>{
-                if(results[1].temperature < req.body.Temperature){
+            // db.TempPoint.find().sort({"datePosted":-1}).then(results =>{
+                // if(results[1].temperature < req.body.Temperature){
                     //send that it's too high
-                    timePastThreshold = moment();
-                    if(notifications){
-                        sendNotifcation(req.body.Temperature)
-                    }
-                }else if(results[1].temperature > req.body.Temperature){
+                    // timePastThreshold = moment();
+                    // if(notifications){
+                        // sendNotifcation(req.body.Temperature)
+                    // }
+                // }else if(results[1].temperature > req.body.Temperature){
                     //do nothing. 
-                    var now = moment()
+                    // var now = moment()
                     //if difference between now and timePastThrehold > 1 hour, send another notification 
                 // }else if(results[1].temperature > req.body.Temperature){
-                }
-                })
-            }
+                // }
+                // })
+            // }
             //check to see if the temp threshold has changed
             // dbTempPoint.datePosted = dbTempPoint.datePosted.toLocaleTimeString()
             //send notification if it has

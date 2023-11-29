@@ -210,15 +210,17 @@ app.post("/postTemp", function(req, res){
 
     // db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": new Date().toLocaleString('en-US', {
     //     timeZone: 'America/New_York'
-    let temperaturePoint = req.body.location ? {
-        "temperature":req.body.Temperature,
+    // let temperaturePoint = req.body.location ? {
+        let temperaturePoint = {
+
+    "temperature":req.body.Temperature,
         "datePosted": Date(),
         location: req.body.location
-    } :
-    {
-        temperature: req.body.Temperature,
-        datePosted: Date()
-    }
+     } //:
+    // {
+    //     temperature: req.body.Temperature,
+    //     datePosted: Date()
+    // }
         db.TempPoint.create(temperaturePoint).then(function(dbTempPoint){
         // if(req.body.Temperature > thresholdTemp){
             //Determine interval for notification

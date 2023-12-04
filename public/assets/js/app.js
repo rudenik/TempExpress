@@ -9,6 +9,7 @@ function getLatestTemperature() {
         $("#cTemp").text(res[0].temperature)
         var lastReported = moment(res[0].datePosted).format("MMM Do YY, h:mm:ss a")
         $("#lReported").text(lastReported)
+        $("#reportedLocation").text(res[0].location)
     }))
 }
 

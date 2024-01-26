@@ -7,9 +7,54 @@ h6{
     display: inline;
     padding: 20px;
 }
-#sixHours, #twentyFourHours{
-    background-color: #dca03f;
+#lastHour{
+    background-color: #4caf50;
 }
-#refreshLatest{
+.active#lastHour{
+    background-color: #1b5e20;
+}
+#sixHours{
+    background-color: #ffeb3b;
+    color: black;
+} 
+.active#sixHours{
+    background-color: #f9a825;
+    color: black;
+} 
+
+#twentyFourHours{
+    background-color: #ff9800;
+}
+.active#twentyFourHours{
+    background-color: #e65100;
+}
+#fiveDays{
+    background-color: #f4511e;
+}
+.active#fiveDays{
+    background-color: #bf360c ;
+}
+#refreshLatest, #getTemps{
+    margin-top:16px;
+    margin-left:16px;
     background-color: #2979ff;
 }
+.divider{
+    margin: 16px;
+    /* padding-bottom: 16px; */
+}
+.divTitle{
+    color: white;
+}
+#MRoom.active{
+    /* background-color: #1d7d74;; */
+    background-color: #1d7d74;
+}
+#LRoom.active{
+    /* background-color: #1d7d74;; */
+    background-color: #1d7d74;
+}
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+  }

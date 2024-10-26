@@ -45,15 +45,67 @@ app.get("/ip", function(req, res){
 })
 
 app.get("/getTemps", function(req, res){
-    db.TempPoint.find({})
-    .sort({datePosted: -1})
-    .then(function(results){
-        res.json(results);
-    })
-    .catch(function(err){
-        console.log(err);
-        res.json(err);
-    });
+    console.log("params: ", req.query)
+    let duration = new Date();
+    switch(req.query.duration){
+        case "sixHours":
+            duration = new Date(Date.now()- 6 * 60 * 60 * 1000);
+            break;
+        case "lastHour":
+            duration = new Date(Date.now()- 60 * 60 * 1000);
+            break;
+        case "twentyFourHours":
+            duration = new Date(Date.now()- 24 * 60 * 60 * 1000)
+            break;
+        case "fiveDays":
+            duration = new Date(Date.now()- 5 * 24 * 60 * 60 * 1000)
+            break;
+        default :
+        duration = new Date(Date.now()- 60 * 60 * 1000);
+        break; 
+    }
+
+    if(req.query.location == 'all'){
+        db.TempPoint.find({
+            datePosted: {$gt: duration}
+        })
+        .sort({datePosted: 1})
+        .then((results)=>{
+            res.json(results)
+
+        })
+        .catch((err)=>{
+            console.log(err);
+            res.json(err)
+        })
+    }else{
+        let location = req.query.location == 'MRoom' ? "Marlowe's Room" : "Living Room";
+        console.log(location)
+        db.TempPoint.find({
+            location: location,
+            datePosted:  {$gt: duration}
+        })
+        .sort({datePosted: 1})
+        .then((results)=>{
+            res.json(results)
+
+        })
+        .catch((err)=>{
+            console.log(err);
+            res.json(err)
+        })
+        
+    }
+    // console.log("balls")
+    // db.TempPoint.find({})
+    // .sort({datePosted: -1})
+    // .then(function(results){
+    //     res.json(results);
+    // })
+    // .catch(function(err){
+    //     console.log(err);
+    //     res.json(err);
+    // });
 });
 
 app.get("/getLatestTemps", function(req, res){
@@ -210,15 +262,17 @@ app.post("/postTemp", function(req, res){
 
     // db.TempPoint.create({"temperature":req.body.Temperature, "datePosted": new Date().toLocaleString('en-US', {
     //     timeZone: 'America/New_York'
-    let temperaturePoint = req.body.location ? {
-        "temperature":req.body.Temperature,
+    // let temperaturePoint = req.body.location ? {
+        let temperaturePoint = {
+
+    "temperature":req.body.Temperature,
         "datePosted": Date(),
         location: req.body.location
-    } :
-    {
-        temperature: req.body.Temperature,
-        datePosted: Date()
-    }
+     } //:
+    // {
+    //     temperature: req.body.Temperature,
+    //     datePosted: Date()
+    // }
         db.TempPoint.create(temperaturePoint).then(function(dbTempPoint){
         // if(req.body.Temperature > thresholdTemp){
             //Determine interval for notification

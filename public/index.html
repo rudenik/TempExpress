@@ -25,16 +25,32 @@
                     <div class="card-content white-text">
                       <span class="card-title">Current Temperature:<h4 id="cTemp"></h4></span>
                       <span class="card-title">Last reported:<h6 id="lReported"></h6></span>
+                      <span class="card-title">Location:<h6 id="reportedLocation"></h6></span>
                       <p>Select a time frame below to see how the temperature has changed over time.</p>
                     </div>
                     <div class="card-action">
                       <!-- <a href="#">This is a link</a> -->
-                      <button class="btn" id="lastHour">Last Hour</button>
-                      <button class="btn" id="sixHours">Six Hours</button>
-                      <button class="btn" id="twentyFourHours">24 Hours</button>
-                      <button class="btn" id="fiveDays">5 Days</button>
-                      <button class="btn" id="refreshLatest">Refresh Latest Temperatue</button>
+                      <div id="location">
+                        <span class="card-title"><h6 class="divTitle">Location</h6></span>
+                        <label class="btn" id="LRoom">Living Room</label>
+                        <label class="btn" id="MRoom">Marlowe's Room</label>
+                        <label class="btn" id="reset">Reset</label>
+                      </div>
+                      <div class="divider"></div>
+                      <div id="timeFrame">
+                      <h6 class="divTitle">Time Frame</h6>
+                      
+                        <button class="btn" id="lastHour">Last Hour</button>
+                        <button class="btn" id="sixHours">Six Hours</button>
+                        <button class="btn" id="twentyFourHours">24 Hours</button>
+                        <button class="btn" id="fiveDays">5 Days</button>
+                      
+                      <br>
+                      <button class="btn" id="refreshLatest">Refresh Latest Temperature</button>
+                      <!-- <button class="btn" id="getTemps">get Temperatures</button> -->
                     </div>
+                    </div>
+                    
                   </div>
                 </div>
                 <div class="col s12 m6">

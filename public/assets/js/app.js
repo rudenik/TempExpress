@@ -1,5 +1,6 @@
-var tempsMR = [];
-var tempsLR = [];
+// var tempsMR = [];
+// var tempsLR = [];
+var hpcTemps = [];
 var dataLabels = [];
 var histLows = [];
 var histHighs = [];
@@ -15,16 +16,20 @@ function getLatestTemperature() {
 function getLastSixHours() {
     return (
         $.get("/getLastSixHours").then(function (res) {
-            tempsMR = [];
-            tempsLR = [];
+            // tempsMR = [];
+            // tempsLR = [];
+            hpcTemps = [];
             dataLabels = [];
             for (var i = 0; i < res.length; i +=30) {
-                if(res[i].location == "Marlowe's Room"){
-                    tempsMR.push(res[i].temperature)
-                } else if( res[i].location == "Living Room")
-                {
-                    tempsLR.push(res[i].temperature)
+                if(res[i].location == "HPCloset"){
+                    hpcTemps.push(res[i].temperature)
                 }
+                // if(res[i].location == "Marlowe's Room"){
+                //     tempsMR.push(res[i].temperature)
+                // } else if( res[i].location == "Living Room")
+                // {
+                //     tempsLR.push(res[i].temperature)
+                // }
             }
             //specify the interval for which data points get displayed. This one is for labels
             for (var i = 0; i < res.length; i += 30) {
@@ -38,16 +43,20 @@ function getLastHour() {
     return (
         $.get("/getLastHour").then(function (res) {
             // temps = [];
-            tempsMR = [];
-            tempsLR = [];
+            // tempsMR = [];
+            // tempsLR = [];
+            hpcTemps = [];
             dataLabels = [];
             for (var i = 0; i < res.length; i +=30) {
-                if(res[i].location == "Marlowe's Room"){
-                    tempsMR.push(res[i].temperature)
-                } else if( res[i].location == "Living Room")
-                {
-                    tempsLR.push(res[i].temperature)
+                if(res[i].location == "HPCloset"){
+                    hpcTemps.push(res[i].temperature)
                 }
+                // if(res[i].location == "Marlowe's Room"){
+                //     tempsMR.push(res[i].temperature)
+                // } else if( res[i].location == "Living Room")
+                // {
+                //     tempsLR.push(res[i].temperature)
+                // }
             }
             // for (var i = 0; i < res.length; i ++) {
             //     temps.push(res[i].temperature);
@@ -63,15 +72,20 @@ function getLastHour() {
 function getLast24Hours() {
     return (
         $.get("/getLast24Hours").then(function (res) {
-            tempsMR = [];
-            tempsLR = [];
+            // tempsMR = [];
+            // tempsLR = [];
+            hpcTemps = [];
+
             for (var i = 0; i < res.length; i +=30) {
-                if(res[i].location == "Marlowe's Room"){
-                    tempsMR.push(res[i].temperature)
-                } else if( res[i].location == "Living Room")
-                {
-                    tempsLR.push(res[i].temperature)
+                if(res[i].location == "HPCloset"){
+                    hpcTemps.push(res[i].temperature)
                 }
+                // if(res[i].location == "Marlowe's Room"){
+                //     tempsMR.push(res[i].temperature)
+                // } else if( res[i].location == "Living Room")
+                // {
+                //     tempsLR.push(res[i].temperature)
+                // }
             }
             // temps = [];
             // dataLabels = [];
@@ -91,9 +105,10 @@ function getLastFiveDays() {
             console.log(res.tempResults.length)
 
             // temps = [];
-            tempsMR = [];
-            tempsLR = [];
-            
+            // tempsMR = [];
+            // tempsLR = [];
+            hpcTemps = [];
+
             dataLabels = [];
             histLows = [];
             histHighs = [];
@@ -103,12 +118,15 @@ function getLastFiveDays() {
             //     temps.push(res.tempResults[i].temperature);
             // }
             for (var i = 0; i < res.length; i +=30) {
-                if(res[i].location == "Marlowe's Room"){
-                    tempsMR.push(res[i].temperature)
-                } else if( res[i].location == "Living Room")
-                {
-                    tempsLR.push(res[i].temperature)
+                if(res[i].location == "HPCloset"){
+                    hpcTemps.push(res[i].temperature)
                 }
+                // if(res[i].location == "Marlowe's Room"){
+                //     tempsMR.push(res[i].temperature)
+                // } else if( res[i].location == "Living Room")
+                // {
+                //     tempsLR.push(res[i].temperature)
+                // }
             }
             for (var i = 0; i < res.tempResults.length; i +=60) {
             // for (var i = 0; i < res.tempResults.length; i ++) {
@@ -156,16 +174,21 @@ function drawChart() {
                 "label": "Previous temperature Highs",
                 "data": histHighs,//.reverse(), 
                 "fill": false, "borderColor": "rgb(207, 81, 78)", "lineTension": 0.1
-            }
-            ,{
-                "label": "Living Room Temp",
-                "data": tempsLR,//.reverse(), 
-                "fill": true, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1
             },
+            // ,{
+            //     "label": "Living Room Temp",
+            //     "data": tempsLR,//.reverse(), 
+            //     "fill": true, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1
+            // },
+            // {
+            //     "label": "Marlowe's Room Temp",
+            //     "data": tempsMR,//.reverse(), 
+            //     "fill": true, "borderColor": "RGB(192, 75, 75)", "lineTension": 0.1
+            // }
             {
-                "label": "Marlowe's Room Temp",
-                "data": tempsMR,//.reverse(), 
-                "fill": true, "borderColor": "RGB(192, 75, 75)", "lineTension": 0.1
+                "label":"Harry Potter Closet",
+                "data":hpcTemps,
+                "fill":true, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1
             }
 
         ]

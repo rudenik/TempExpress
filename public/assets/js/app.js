@@ -1,4 +1,6 @@
 // var tempsMR = [];
+// import { Chart } from "chart.js";
+// const { Chart } =  import('chart.js/dist/chart.js');
 var tempsLR = [];
 var hpcTemps = [];
 var dataLabels = [];
@@ -41,19 +43,14 @@ function getTemperatures(){
                 }else if(res[i].location == "Living Room"){
                     tempsLR.push(res[i].temperature)
                 }
-
-                // if(res[i].location == "Marlowe's Room"){
-                //     tempsMR.push(res[i].temperature)
-                // } else if( res[i].location == "Living Room")
-                // {
-                //     tempsLR.push(res[i].temperature)
-                // }
             }
             //specify the interval for which data points get displayed. This one is for labels
             for (var i = 0; i < res.length; i += 30) {
             // for (var i = 0; i < res.length; i ++) {
                 dataLabels.push(moment(res[i].datePosted).format("LT"))
             }
+            // console.log(dataLabels.length);
+            // console.log(hpcTemps.length);
 
     }))
 }
@@ -82,12 +79,6 @@ function getLastSixHours(location) {
                 }else if(res[i].location == "Living Room"){
                     tempsLR.push(res[i].temperature)
                 }
-                // if(res[i].location == "Marlowe's Room"){
-                //     tempsMR.push(res[i].temperature)
-                // } else if( res[i].location == "Living Room")
-                // {
-                //     tempsLR.push(res[i].temperature)
-                // }
             }
             //specify the interval for which data points get displayed. This one is for labels
             for (var i = 0; i < res.length; i += 30) {
@@ -100,46 +91,28 @@ function getLastSixHours(location) {
 
 
 function drawChart() {
-    var ctx = $("#myChart");
-
-    var myChart = new Chart(ctx, {
-        "type": "line",
-        "data": {
-            "labels": dataLabels,//.reverse(),
-            //["January", "February", "March", "April", "May", "June", "July"], 
-            "datasets": [
-                
+    const ctx = document.getElementById('myChart');
+    let data = {
+        labels: dataLabels,
+        datasets: [
             {
-                "label": "Previous temperature Lows",
-                "data": histLows,//.reverse(), 
-                "fill": false, "borderColor": "rgb(78, 127, 207)", "lineTension": 0.1
-            },
-            {
-                "label": "Previous temperature Highs",
-                "data": histHighs,//.reverse(), 
-                "fill": false, "borderColor": "rgb(207, 81, 78)", "lineTension": 0.1
-            },
-            ,{
                 "label": "Living Room Temp",
                 "data": tempsLR,//.reverse(), 
-                // "fill": true, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1
                 "fill": true, "borderColor": "rgb(192, 75, 75)", "lineTension": 0.1
             },
-            // {
-            //     "label": "Marlowe's Room Temp",
-            //     "data": tempsMR,//.reverse(), 
-            //     "fill": true, "borderColor": "RGB(192, 75, 75)", "lineTension": 0.1
-            // }
             {
                 "label":"Harry Potter Closet",
                 "data":hpcTemps,
                 "fill":true, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1
             }
-
         ]
-        },
-        "options": {}
-    });
+    }
+
+    let myChart = new Chart(ctx, {
+        type: 'line',
+        data: data, 
+    })
+
 }
 
 // $("#getTemps").on("click", ()=>{

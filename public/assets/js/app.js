@@ -1,5 +1,5 @@
 // var tempsMR = [];
-// var tempsLR = [];
+var tempsLR = [];
 var hpcTemps = [];
 var dataLabels = [];
 var histLows = [];
@@ -31,13 +31,15 @@ function getTemperatures(){
     }).then((res)=>{
         console.log(res);
         // tempsMR = [];
-        //     tempsLR = [];
+        tempsLR = [];
         hpcTemps = [];
-            dataLabels = [];
+        dataLabels = [];
             // for (var i = 0; i < res.length; i +=30) {
             for (var i = 0; i < res.length; i ++) {
                 if(res[i].location == "HPCloset"){
                     hpcTemps.push(res[i].temperature)
+                }else if(res[i].location == "Living Room"){
+                    tempsLR.push(res[i].temperature)
                 }
 
                 // if(res[i].location == "Marlowe's Room"){
@@ -71,12 +73,14 @@ function getLastSixHours(location) {
             params: location
         }).then(function (res) {
             // tempsMR = [];
-            // tempsLR = [];
+            tempsLR = [];
             hpcTemps = [];
             dataLabels = [];
             for (var i = 0; i < res.length; i +=30) {
                 if(res[i].location == "HPCloset"){
                     hpcTemps.push(res[i].temperature)
+                }else if(res[i].location == "Living Room"){
+                    tempsLR.push(res[i].temperature)
                 }
                 // if(res[i].location == "Marlowe's Room"){
                 //     tempsMR.push(res[i].temperature)
@@ -115,11 +119,12 @@ function drawChart() {
                 "data": histHighs,//.reverse(), 
                 "fill": false, "borderColor": "rgb(207, 81, 78)", "lineTension": 0.1
             },
-            // ,{
-            //     "label": "Living Room Temp",
-            //     "data": tempsLR,//.reverse(), 
-            //     "fill": true, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1
-            // },
+            ,{
+                "label": "Living Room Temp",
+                "data": tempsLR,//.reverse(), 
+                // "fill": true, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1
+                "fill": true, "borderColor": "rgb(192, 75, 75)", "lineTension": 0.1
+            },
             // {
             //     "label": "Marlowe's Room Temp",
             //     "data": tempsMR,//.reverse(), 

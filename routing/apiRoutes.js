@@ -21,10 +21,12 @@ const haApi = axios.create({
     }
 });
 
+
 // Setup Pushover
 const push = new Push({ 
     user: process.env.PUSHOVER_USER,
     token: process.env.PUSHOVER_TOKEN
+
 });
 
 // --- Existing Temperature Routes ---

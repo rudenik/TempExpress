@@ -131,12 +131,13 @@ router.post("/twine", function(req, res) {
     const formattedDate = moment(new Date(dateOpened)).format("lll");
 
     // Pulling temp from query params as per your legacy setup (e.g., /api/twine?temp=22)
-    const temp = req.query.temp || "unknown";
+    const temp = req.body.temp || "unknown";
+    // console.log(req.body);
 
     const msg = {
         message: `Opened at ${formattedDate}\nThe temperature was ${temp} Celsius`,
         title: `The door has been opened`,
-        device: ["theWife", "pixel6"] // Specified target devices
+        //device: ["theWife", "pixel6"] // Specified target devices
     };
 
     push.send(msg, function(err, result) {
